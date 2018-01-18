@@ -12,7 +12,7 @@ https://arxiv.org/abs/1612.08242
 
 *** NOTE: this document is a work in progress... ***
 
-I developed a code-crush (I'm coining that term unless it's already taken) on YOLOv2 when I discovered the repo and saw that it was written in C and CUDA. Maybe I was so enthralled because I had been suffering through hell with TensorFlow, which I only use because Keras is so great. Though I have been coding in Python for many years, I still love the beauty, power, and simplicity (until I get segfaults that take me an hour to debug) of the C programming language. What's more, calling C from Python is no problem. The darknet neural network framework is Open Source, fast, easy to compile and use, and supports both CPU and GPU.  
+I developed a code-crush (I'm coining that term unless it's already taken) on YOLOv2 when I discovered the repo and saw that it was written in C and CUDA. Maybe I was so enthralled because I had been suffering through hell with TensorFlow, which I only use because Keras is so great. Though I have been coding in Python for several years, I still love the beauty, power, and simplicity (until I get segfaults that take me an hour to debug) of the C programming language. What's more, calling C from Python is no problem. The darknet neural network framework is Open Source, fast, easy to compile and use, and supports both CPU and GPU.  
 
 
 ### Training YOLO on VOC
