@@ -127,15 +127,15 @@ to
 `if(i%100==0 || (i < 1000 && i%100 == 0)){`  
 or simply replace the number 10000 with whatever smaller whole number you want.
 
-Now train the nework:  
+Now train the network:  
 ```
 ~$ ./darknet detector train cfg/nfpa.data cfg/yolo-nfpa.2.0.cfg darknet19_448.conv.23
 ```  
 
 
-##### Test (using our trained network to detect our class of interest)  
-To detect our class in a test image, say "data/testimage.jpg", copy the best weights file, say it's "yolo-obj_1000.weights" to darknet directory. Then:  
+##### Test (using our trained network to detect our class of interest in a heretofore unseen image)  
+To detect our class in a test image, say "data/testimage.jpg", copy the best weights file, say it's "yolo-nfpa_1500.weights", to darknet directory. Then:  
 ```
-~$ ./darknet detector test cfg/obj.data cfg/yolo-obj.cfg yolo-obj1000.weights data/testimage.jpg
+~$ ./darknet detector test cfg/nfpa.data cfg/yolo-nfpa.2.0.cfg yolo-nfpa_1500.weights data/testimage.jpg
 ```  
       
