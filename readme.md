@@ -166,7 +166,7 @@ Modify example.py appropriately. Here is my script:
 import pyyolo
 import numpy as np
 import sys
-import cv2
+from cv2 import imread
 
 darknet_path = './darknet'
 datacfg = 'cfg/nfpa.data'
