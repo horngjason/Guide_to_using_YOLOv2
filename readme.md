@@ -188,7 +188,7 @@ while i < len(files):
     filename = files[i]
     print(filename)
 	# ret_val, img = cam.read()
-    img = cv2.imread(filename)
+    img = imread(filename)
     img = img.transpose(2,0,1)
     c, h, w = img.shape[0], img.shape[1], img.shape[2]
     # print w, h, c 
