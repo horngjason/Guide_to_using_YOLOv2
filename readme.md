@@ -222,3 +222,81 @@ Cam frame predicted in 0.009449 seconds.
 
 Note to self: Worked well until I tried with a larger image. An image of size 1200x829 resulted in a segfault ... will look into this later.  
 
+Here is another version I made using skimage instead of cv2, and drawing the bounding box on the image which is plotted with a Matplotlib script (custom_plots.py).  
+
+```
+import pyyolo
+import numpy as np
+import sys
+from skimage.io import imread
+from skimage.draw import line_aa
+
+from sys import path as spath
+spath.append('/home/davros/py_drf')
+import custom_plots
+
+
+darknet_path = './darknet'
+datacfg = 'cfg/nfpa.data'
+cfgfile = 'cfg/yolo-nfpa.2.0.cfg'
+weightfile = '../yolo-nfpa_1500.weights'
+files = [ darknet_path + '/data/fd_01.jpg',
+          darknet_path + '/data/fd_02.jpg',
+          darknet_path + '/data/fd_03.jpg' ]
+         
+thresh = 0.24
+hier_thresh = 0.5
+
+pyyolo.init(darknet_path, datacfg, cfgfile, weightfile)
+
+# camera 
+print('----- test python API using a file')
+i = 0
+while i < len(files):
+    filename = files[i]
+    print(filename)
+    
+    dispimg = imread(filename)
+    print(dispimg.shape, dispimg.dtype, dispimg[0,0,0])
+    h, w, c = dispimg.shape
+    img = np.rollaxis(dispimg, 2)
+    print(img.shape, img.dtype, img[0,0,0])
+    
+    data = img.ravel()/255.0
+    data = np.ascontiguousarray(data, dtype=np.float32)
+    outputs = pyyolo.detect(w, h, c, data, thresh, hier_thresh)	
+    for output in outputs:
+        print(output)
+        rr, cc, val = line_aa( output['top'], output['left'], output['bottom'], output['left'] )
+        dispimg[rr,cc,0] = val * 255
+        dispimg[rr,cc,1] = 0
+        dispimg[rr,cc,2] = 0
+        
+        rr, cc, val = line_aa( output['top'], output['left'], output['top'], output['right'] )
+        dispimg[rr,cc,0] = val * 255
+        dispimg[rr,cc,1] = 0
+        dispimg[rr,cc,2] = 0
+        
+        rr, cc, val = line_aa( output['top'], output['right'], output['bottom'], output['right'] )
+        dispimg[rr,cc,0] = val * 255
+        dispimg[rr,cc,1] = 0
+        dispimg[rr,cc,2] = 0
+        
+        rr, cc, val = line_aa( output['bottom'], output['left'], output['bottom'], output['right'] )
+        dispimg[rr,cc,0] = val * 255
+        dispimg[rr,cc,1] = 0
+        dispimg[rr,cc,2] = 0                
+        
+    ans = custom_plots.show_img_return_input(dispimg, ' ')
+        
+    i += 1
+
+
+# free model
+pyyolo.cleanup()
+```
+
+An output image is shown below:  
+![alt text](./images/detection.png?raw=true "Output")  
+
+
