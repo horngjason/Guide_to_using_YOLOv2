@@ -67,21 +67,22 @@ To resume training after stopping, copy the most recent weights file from backup
 
 Nils Tijtgat created an informative post on the subject:  
 https://timebutt.github.io/static/how-to-train-yolov2-to-detect-custom-objects/  
-Guanghan Ning made his own detector for traffic signs:  
-https://github.com/Guanghan/darknet  
 
-The information below were shamelessly taken from Nils's post and resolved YOLOv2 GitHub issues. Below is a simple procedure to use YOLOv2 with your own dataset. For expanations and insights into the workings of YOLOv2, please read the YOLO9000 paper.  
+Some of the information below was shamelessly taken from Nils's post and resolved YOLOv2 GitHub issues. Below is a simple procedure to use YOLOv2 with your own dataset. For explanations and insights into the workings of YOLOv2, please read the YOLO9000 paper.  
 
 
 ###### Create the image and labels dataset
 I tested with this annotated dataset:  
 https://timebutt.github.io/content/other/NFPA_dataset.zip  
 
-The annotations for this image set is alread in the YOLO version 2 format, but in the future, when I use "labelImg" to locate the training object bounding boxes, I will need to convert to the format expected by YOLOv2. This can be done with G. Ning's script found here: 
-https://github.com/Guanghan/darknet/blob/master/scripts/convert.py
+The annotations for this image set is already in the YOLO version 2 format, but in the future, when I use "labelImg" to locate the training object bounding boxes, I will need to convert to the format expected by YOLOv2. This can be done with G. Ning's script found here: 
+https://github.com/Guanghan/darknet/blob/master/scripts/convert.py  
+  
 
 ###### Create the train.txt and test.txt files
 These files contain the paths of the images. Nils Tijtgat provides a script (https://timebutt.github.io/static/how-to-train-yolov2-to-detect-custom-objects/) to create these two files. Be aware that you can set the variable "percentage_test" to determine the percentage of images to be set aside for the test set.  
+
+If I remember correctly, one of the images in the NFPA dataset had an extension of ".JPEG", instead of ".jpg". Be sure to change this, or either make your script account for differing file extensions.
 
 ###### Create YOLOv2 configuration files
 We must create three files. Create the first two like so:  
@@ -124,7 +125,7 @@ There is one change that we should make to /examples/detector.c before training.
 `if(i%10000==0 || (i < 1000 && i%100 == 0)){`  
 to  
 `if(i%100==0 || (i < 1000 && i%100 == 0)){`  
-or simply replace the number 10000 with whatever smaller whole number you want.
+or simply replace the number 10000 with whatever smaller integer you want.
 
 Now train the network:  
 ```
@@ -220,10 +221,9 @@ Cam frame predicted in 0.009449 seconds.
 {'prob': 0.8641700148582458, 'bottom': 253, 'left': 47, 'right': 242, 'class': 'NFPA', 'top': 51}
 ```
 
-Note to self: Worked well until I tried with a larger image. An image of size 1200x829 resulted in a segfault ... will look into this later.  
+Note to self: An image of size 1200x829 resulted in a segfault, though the several smaller images I used posed no problem for pyyolo ... will look into this later.  
 
-Here is another version I made using skimage instead of cv2, and drawing the bounding box on the image which is plotted with a Matplotlib script (custom_plots.py).  
-
+Here is another version I made using skimage instead of cv2. It draws the bounding box on the image which is plotted with a simple plotting function custom_plots.py (not shown). You could just use skimage to show the images.  
 ```
 import pyyolo
 import numpy as np
