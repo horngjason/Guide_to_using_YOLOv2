@@ -223,6 +223,9 @@ Cam frame predicted in 0.009449 seconds.
 
 Note to self: An image of size 1200x829 resulted in a segfault, though the several smaller images I used posed no problem for pyyolo ... will look into this later.  
 
+
+##### Showing output images with bounding boxes  
+    
 Here is another version I made using skimage instead of cv2. It draws the bounding box on the image which is plotted with a simple plotting function custom_plots.py (not shown). You could just use skimage to show the images.  
 ```
 import pyyolo
