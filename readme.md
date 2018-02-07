@@ -160,7 +160,7 @@ Copy yolo-nfpa_1500.weights from the original darknet directory to ~/pyyolo
 
 Copy the test images, in my case fd_01.jpg, fd_02.jpg, and fd_03.jpg, to ~/pyyolo/data
 
-Modify example.py. Here is my modified example script:
+Modify example.py appropriately. Here is my script:
 
 ```
 import pyyolo
