@@ -2,7 +2,7 @@
 # Guide to using YOLOv2
 This reference is mainly to help me and colleagues when we need to use real-time object detection in our work. I have experience with classification and localization using deep neural networks, but this is my first time to implement a deep, real-time detector + localizer since I normally detect based on cues such as motion, shape, color (thermal channel), etc.  
 
-To learn about Joseph Redmond's YOLO:  
+To learn about Joseph Redmon's YOLO:  
 see his darknet website:  
 https://pjreddie.com/darknet/yolo/  
 and the project github page:  
