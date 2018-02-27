@@ -121,7 +121,7 @@ Now make the following edits to yolo-nfpa.2.0.cfg:
 ##### Train
 Train this data set just as we did for the VOC dataset above. Use the weights pre-trained on Imagenet (the file is darknet19_448.conv.23).  
 
-There is one change that we should make to /examples/detector.c before training.  When the network is training, it will save the weights to /backup every 100 iterations until 900. After 900 iterations, the default setting is to save every 10,000 iterations. We would like to save more often that that with this small dataset. To change this setting, change the following line in examples/detector.c  
+There is one change that we should make to examples/detector.c before training.  When the network is training, it will save the weights to the directory "backup" every 100 iterations until 900. After 900 iterations, the default setting is to save every 10,000 iterations. We would like to save more often than that with this small dataset. To change this setting, change the following line in examples/detector.c  
 `if(i%10000==0 || (i < 1000 && i%100 == 0)){`  
 to  
 `if(i%100==0 || (i < 1000 && i%100 == 0)){`  
